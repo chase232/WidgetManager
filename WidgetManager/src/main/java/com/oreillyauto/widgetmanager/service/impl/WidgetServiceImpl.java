@@ -1,5 +1,7 @@
 package com.oreillyauto.widgetmanager.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,17 @@ public class WidgetServiceImpl implements WidgetService {
     @Override
     public Widget getWidgetById(Integer id) {
         return widgetRepo.getWidgetById(id);
+    }
+
+    @Override
+    public List<Widget> getAllSoda() {
+        return widgetRepo.getAllSoda();
+    }
+
+    @Override
+    public void saveSoda(Widget widget) {
+        widgetRepo.save(widget);
+        
     }
 
 }

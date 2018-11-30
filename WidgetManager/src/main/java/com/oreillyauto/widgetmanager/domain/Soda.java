@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "soda")
-public class Widget implements Serializable {
+public class Soda implements Serializable {
 
     private static final long serialVersionUID = 4860897329507163934L;
 
@@ -29,7 +29,7 @@ public class Widget implements Serializable {
     @Column(name = "brand", columnDefinition = "VARCHAR(20)")
     private String brand;
     
-    public Widget() { }
+    public Soda() { }
 
     public Integer getId() {
         return id;

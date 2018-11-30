@@ -25,7 +25,7 @@
 							<tr>
 								<th>Action</th>
 								<th>
-									Column 1
+									Soda ID
 									&nbsp;
 									<a href="#">
 										<span class="glyphicon glyphicon-arrow-up"></span>
@@ -36,7 +36,7 @@
 									</a>
 								</th>
 								<th>
-									Column 2
+									Name
 									&nbsp;
 									<a href="#">
 										<span class="glyphicon glyphicon-arrow-up"></span>
@@ -47,7 +47,18 @@
 									</a>
 								</th>
 								<th>
-									Column 3
+									Color
+									&nbsp;
+									<a href="#">
+										<span class="glyphicon glyphicon-arrow-up"></span>
+									</a>
+									&nbsp;
+									<a href="#">
+										<span class="glyphicon glyphicon-arrow-down"></span>
+									</a>
+								</th>
+								<th>
+									Brand
 									&nbsp;
 									<a href="#">
 										<span class="glyphicon glyphicon-arrow-up"></span>
@@ -60,6 +71,7 @@
 							</tr>
 						</thead>
 						<tbody>
+							<c:forEach items="${sodaList}" var="entry">
 							<tr>
 								<td>
 									<a href="<c:url value='/widgets/edit' />">
@@ -70,15 +82,19 @@
 									</a>
 								</td>
 								<td>
-									Col 1 data
+									<c:out value="${entry.id}"/>
 								</td>
 								<td>
-									Col 2 data
+									<c:out value="${entry.name}"/>
 								</td>
 								<td>
-									Col 3 data
+									<c:out value="${entry.color}"/>
+								</td>
+								<td>
+									<c:out value="${entry.brand}"/>
 								</td>
 							</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
@@ -87,8 +103,18 @@
 			<%-- ADD/EDIT MODE --%>
 			<c:if test="${mode eq 'addMode' or mode eq 'editMode'}">
 				add edit form goes here
-				<form>
+				<form method = "post" action="<c:url value='/widgets/add' />">
 					
+					<label for="name">Name</label>
+						<input type="text" id="name" name="name" value="${widget.name}" />&nbsp;
+					<br/>
+					<label for="color">Color</label>
+						<input type="text" id="color" name="color" value="${widget.color}" />
+					<br/>
+					<label for="brand">Brand</label>
+						<input type="text" id="brand" name="brand" value="${widget.brand}" />
+					<br/>
+					<button class="btn btn-primary" type="submit">Submit</button>
 				</form>
 			</c:if>
 			
@@ -96,7 +122,7 @@
 	</div>
 </div>
 <script>
-require([
+/* require([
 	'dijit/registry', 'dojo/request', 'dojo/ready' 
 ], function (registry, request, ready) {
 	var alertManager;
@@ -109,7 +135,7 @@ require([
 			e.preventDefault(); // Prevent Form From Submitting "normally"
 			var btn = this,
 			
-			request('<c:url value="/some/url" />', {
+ 			request('<c:url value="/some/url" />', {
 				method: 'POST',
 				handleAs: "json",
 				data: {
@@ -125,11 +151,11 @@ require([
 			}, function(err) {
 				btn.stopSpinner();
 			    alertManager.addError({message: err, position: 'carPartMessage'});
-			});
+			}); 
 		}); // end registry by id
 		
 	});  // end ready function
-});  // end require function
+});  // end require function */
 </script>
 
 
