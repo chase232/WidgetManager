@@ -1,0 +1,2 @@
+A DTO is a Data Transfer Object.
+We use DTOs to gather information from a web form and transpose them to a Java Object
