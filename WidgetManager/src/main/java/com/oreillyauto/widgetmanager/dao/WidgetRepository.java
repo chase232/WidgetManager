@@ -10,4 +10,6 @@ import com.oreillyauto.widgetmanager.domain.Widget;
 public interface WidgetRepository extends CrudRepository<Widget, Integer>, WidgetRepositoryCustom {
 
     List<Widget> getAllSoda();
+
+    Widget getWidgetByName(String name);
 }

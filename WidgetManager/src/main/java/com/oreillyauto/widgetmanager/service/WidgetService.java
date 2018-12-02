@@ -10,4 +10,8 @@ public interface WidgetService {
     public List<Widget> getAllSoda();
 
     public void saveSoda(Widget widget);
+
+    public Widget getWidgetByName(String name);
+
+    public void deleteWidgetByWidgetId(Widget widget);
 }

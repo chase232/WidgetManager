@@ -31,4 +31,15 @@ public class WidgetServiceImpl implements WidgetService {
         
     }
 
+    @Override
+    public Widget getWidgetByName(String name) {
+        return widgetRepo.getWidgetByName(name);
+    }
+
+    @Override
+    public void deleteWidgetByWidgetId(Widget widget) {
+        widgetRepo.delete(widget);
+        
+    }
+
 }

@@ -17,6 +17,7 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<%-- TABLE MODE --%>
+			<div>${message}</div>
 			<c:if test="${mode eq 'tableMode' }">
 				<div id="tableMode" class="table-responsive">
 					<table class="table table-striped table-bordered table-hover">
@@ -74,10 +75,10 @@
 							<c:forEach items="${sodaList}" var="entry">
 							<tr>
 								<td>
-									<a href="<c:url value='/widgets/edit' />">
+									<a href="<c:url value='/widgets/edit/${entry.id}' />">
 										<span class="glyphicon glyphicon-pencil oreillyGreen"></span>&nbsp;
 									</a>
-									<a href="<c:url value='/widgets/delete' />">
+									<a href="<c:url value='/widgets/${entry.id}/delete' />">
 										<span class="glyphicon glyphicon-remove red"></span>
 									</a>
 								</td>
@@ -102,11 +103,12 @@
 
 			<%-- ADD/EDIT MODE --%>
 			<c:if test="${mode eq 'addMode' or mode eq 'editMode'}">
-				add edit form goes here
-				<form method = "post" action="<c:url value='/widgets/add' />">
-					
+				<c:if test= "${mode eq 'addMode'}"><c:set var = "addOrEdit" value = "add" ></c:set></c:if>
+				<c:if test= "${mode eq 'editMode'}"><c:set var = "addOrEdit" value = "edit/${widget.id}"></c:set></c:if>
+				
+				<form method = "post" action = "<c:url value = '/widgets/${addOrEdit}' />" >			
 					<label for="name">Name</label>
-						<input type="text" id="name" name="name" value="${widget.name}" />&nbsp;
+						<input type="text" id="name" name="name" value="${widget.name}" />
 					<br/>
 					<label for="color">Color</label>
 						<input type="text" id="color" name="color" value="${widget.color}" />
@@ -115,6 +117,11 @@
 						<input type="text" id="brand" name="brand" value="${widget.brand}" />
 					<br/>
 					<button class="btn btn-primary" type="submit">Submit</button>
+					
+					<c:if test="${not empty widget}">
+						<input type="hidden" id="update" name="update" value="true" />
+					</c:if>
+					
 				</form>
 			</c:if>
 			
@@ -130,7 +137,7 @@
 		let alertManager = registry.byId('alertManager');
 
 		
-		// If you choose to use AJAX to get a widget for editing, here is a template:
+	    If you choose to use AJAX to get a widget for editing, here is a template:
 		registry.byId('?').on('click', function (e) {
 			e.preventDefault(); // Prevent Form From Submitting "normally"
 			var btn = this,

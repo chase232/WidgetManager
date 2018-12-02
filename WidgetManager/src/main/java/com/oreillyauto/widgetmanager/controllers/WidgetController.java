@@ -5,8 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.oreillyauto.widgetmanager.domain.Widget;
@@ -18,11 +20,6 @@ public class WidgetController extends BaseController {
 
     @Autowired
     WidgetService widgetService;
-    
-/*    @GetMapping(value = { "widgets" })
-    public String getCarParts(Model model) throws Exception {
-        return "widgets";
-    }*/
 
     @GetMapping(value = { "widgets" })
     public String getWidgets(Model model) {
@@ -52,15 +49,42 @@ public class WidgetController extends BaseController {
     }
     
     @PostMapping(value = { "widgets/add" })
-    public String postAddWidget(Model model, String name, String color, String brand, String update) {
+    public String postAddWidget(Model model, String name, String color, String brand) {
         System.out.println("name=>" + name + " color=>" + color + "brand=>" + brand);
         Widget widget = new Widget();
         widget.setName(name);
         widget.setColor(color);
         widget.setBrand(brand);
         widgetService.saveSoda(widget);
+        model.addAttribute("message", name + " " + "Saved" + " Successfully!");
+        
+        List<Widget> sodaList = widgetService.getAllSoda();
+        
+        // Place a flag on the model so we know that we are working with: 
+        model.addAttribute("mode", "tableMode");
+        model.addAttribute("sodaList", sodaList);
+        return "widgets";
+    }
+
+    
+    @PostMapping(value = { "widgets/edit/{id}" })
+    public String postEditWidget(@PathVariable("id") Integer id, Model model, String name,
+                                String color, String brand, String update) {
+        System.out.println("Id=>" + id + "name=>" + name + " color=>" + color + "brand=>" + brand);
+        Widget widget = new Widget();
+        widget.setId(id);
+        widget.setName(name);
+        widget.setColor(color);
+        widget.setBrand(brand);
+        widgetService.saveSoda(widget);
         String action = ("true".equalsIgnoreCase(update)) ? "Updated" : "Saved";
-        model.addAttribute("message", "Name " + name + " " + action + " Successfully!");
+        model.addAttribute("message", name + " " + action + " Successfully!");
+        
+        List<Widget> sodaList = widgetService.getAllSoda();
+        
+        // Place a flag on the model so we know that we are working with: 
+        model.addAttribute("mode", "tableMode");
+        model.addAttribute("sodaList", sodaList);
         return "widgets";
     }
 
@@ -77,19 +101,22 @@ public class WidgetController extends BaseController {
         return "???";
     }
 
-    @GetMapping(value = { "widgets/edit" })
-    public String getEditWidget(Model model, Integer id) {
+    @GetMapping(value = { "widgets/edit/{id}" })
+    public String getEditWidget(@PathVariable("id") Integer id, Model model) {
         // NON-AJAX CALL
         // Get the widget by id
         // Add widget to the model
         
-        
+        Widget widget = widgetService.getWidgetById(id);
+        //Widget widget2 = widgetService.getWidgetByName(name);
         
         // Place a flag on the model so we know that we are working with: 
         model.addAttribute("mode", "editMode");
-        
+        model.addAttribute("widget", widget);
         return "widgets";
     }
+    
+    
     
     @ResponseBody
     @GetMapping(value = { "widgets/xDelete" })
@@ -104,16 +131,23 @@ public class WidgetController extends BaseController {
         return "???";
     }
 
-    @GetMapping(value = { "widgets/delete" })
-    public String getDeleteWidget(Model model, Integer id) {
+    @GetMapping(value = { "widgets/{id}/delete" })
+    public String getDeleteWidget(Model model, @PathVariable Integer id) {
         // NON-AJAX CALL
         // Get the widget by id (CRUD API)
         // Delete the widget
+        Widget widget = widgetService.getWidgetById(id);
+        widgetService.deleteWidgetByWidgetId(widget);
+        // Place a flag on the model so we know that we are working with: 
+        model.addAttribute("mode", "tableMode");
+        model.addAttribute("message"," Deleted Successfully!");
+        
+        // Add msg to the model?
+        List<Widget> sodaList = widgetService.getAllSoda();
         
         // Place a flag on the model so we know that we are working with: 
         model.addAttribute("mode", "tableMode");
-        
-        // Add msg to the model?
+        model.addAttribute("sodaList", sodaList);
         
         return "widgets";
     }

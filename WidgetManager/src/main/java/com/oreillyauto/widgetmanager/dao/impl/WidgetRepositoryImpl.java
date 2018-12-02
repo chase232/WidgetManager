@@ -30,6 +30,18 @@ public class WidgetRepositoryImpl extends QuerydslRepositorySupport implements W
         return widgetList;
     }
     
+    public Widget getWidgetByName(String name) {
+        QWidget widgetTable = QWidget.widget;
+        
+        Widget widgetList = (Widget) getQuerydsl().createQuery()
+                /*.select(carpartTable.partNumber, carpartTable.title, carpartTable.line, carpartTable.description)*/
+                .from(widgetTable)
+                .where(widgetTable.name.eq(name))
+                .fetchOne();
+        
+        return widgetList;
+    }
+    
     @SuppressWarnings("unchecked")
     public List<Widget> getAllSoda(){
         QWidget widgetTable = QWidget.widget;
