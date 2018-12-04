@@ -47,4 +47,9 @@ public class WidgetServiceImpl implements WidgetService {
         return widgetRepo.getSortedSoda();
     }
 
+    @Override
+    public List<Widget> getAllSodaForAjax() {
+        return (List<Widget>)widgetRepo.findAll();
+    }
+
 }

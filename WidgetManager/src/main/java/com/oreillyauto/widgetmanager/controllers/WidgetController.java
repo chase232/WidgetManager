@@ -163,4 +163,25 @@ public class WidgetController extends BaseController {
         
         return "widgets";
     }
+    
+    @GetMapping(value = {"widgets/ajaxTable"})
+    public String getTable(Model model) {
+        return "widgetsajax";
+    }
+    
+    @ResponseBody
+    @GetMapping(value = "widgets/getSodas")
+    public List<Widget> getSodas(){
+        List<Widget> sodaList = widgetService.getAllSodaForAjax();
+        return sodaList;
+    }
 }
+
+
+
+
+
+
+
+
+

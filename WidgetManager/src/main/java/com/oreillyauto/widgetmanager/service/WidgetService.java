@@ -16,4 +16,6 @@ public interface WidgetService {
     public void deleteWidgetByWidgetId(Widget widget);
 
     public List<Widget> getSortedSoda();
+
+    public List<Widget> getAllSodaForAjax();
 }

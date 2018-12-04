@@ -7,5 +7,8 @@
     	<li>
             <a href="<c:url value='/widgets/add' />" class="strong">Add Widget</a>
         </li>
+        <li>
+            <a href="<c:url value='/widgets/ajaxTable' />" class="strong">Ajax Table</a>
+        </li>
     </ul>
 </div>
