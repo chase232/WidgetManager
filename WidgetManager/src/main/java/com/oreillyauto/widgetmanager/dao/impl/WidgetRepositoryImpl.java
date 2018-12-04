@@ -49,6 +49,19 @@ public class WidgetRepositoryImpl extends QuerydslRepositorySupport implements W
         List<Widget> widgetList = (List<Widget>)(Object)getQuerydsl().createQuery().from(widgetTable).fetch();
         return widgetList;
     }
+    
+    @SuppressWarnings("unchecked")
+    public List<Widget> getSortedSoda() {
+        QWidget widgetTable = QWidget.widget;
+        
+        List<Widget> sodaList = (List<Widget>) (Object) getQuerydsl().createQuery()
+                //.select(widgetTable.name, widgetTable.color, widgetTable.brand)
+                .from(widgetTable)
+                .orderBy(widgetTable.name.toUpperCase().asc())
+                .fetch();
+        
+        return sodaList;
+    }
 }
 
 

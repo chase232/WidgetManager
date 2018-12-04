@@ -42,4 +42,9 @@ public class WidgetServiceImpl implements WidgetService {
         
     }
 
+    @Override
+    public List<Widget> getSortedSoda() {
+        return widgetRepo.getSortedSoda();
+    }
+
 }

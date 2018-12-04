@@ -39,7 +39,7 @@
 								<th>
 									Name
 									&nbsp;
-									<a href="#">
+									<a href="<c:url value='/widgets/sortName' /> ">
 										<span class="glyphicon glyphicon-arrow-up"></span>
 									</a>
 									&nbsp;

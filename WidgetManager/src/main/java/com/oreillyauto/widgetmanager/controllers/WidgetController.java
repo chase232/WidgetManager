@@ -152,4 +152,15 @@ public class WidgetController extends BaseController {
         return "widgets";
     }
     
+    @GetMapping(value = {"widgets/sortName"})
+    public String sortName(Model model) {
+        
+        List<Widget> sodaList = widgetService.getSortedSoda();
+        
+        // Place a flag on the model so we know that we are working with: 
+        model.addAttribute("mode", "tableMode");
+        model.addAttribute("sodaList", sodaList);
+        
+        return "widgets";
+    }
 }

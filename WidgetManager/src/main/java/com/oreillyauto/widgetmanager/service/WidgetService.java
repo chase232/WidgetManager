@@ -14,4 +14,6 @@ public interface WidgetService {
     public Widget getWidgetByName(String name);
 
     public void deleteWidgetByWidgetId(Widget widget);
+
+    public List<Widget> getSortedSoda();
 }

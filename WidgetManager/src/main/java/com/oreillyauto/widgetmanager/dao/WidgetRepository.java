@@ -12,4 +12,6 @@ public interface WidgetRepository extends CrudRepository<Widget, Integer>, Widge
     List<Widget> getAllSoda();
 
     Widget getWidgetByName(String name);
+
+    List<Widget> getSortedSoda();
 }
